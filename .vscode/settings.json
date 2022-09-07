@@ -1,7 +1,7 @@
 {
     
     "code-runner.executorMap": {
-    "java": "cd $dir && javac -d ..\\..\\..\\src -encoding UTF-8  -classpath ..\\..\\..\\src $fileName && java '-Dfile.encoding=gbk' -classpath ..\\..\\..\\src task03.$fileNameWithoutExt"
+    "java": "cd $dir && javac -d ..\\..\\..\\src -encoding UTF-8  -classpath ..\\..\\..\\src $fileName && java '-Dfile.encoding=gbk' -classpath ..\\..\\..\\src space.glimmer.lumine.$fileNameWithoutExt"
 },
 "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:jni+resolve=off",
         

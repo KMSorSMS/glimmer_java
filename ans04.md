@@ -334,3 +334,192 @@ public class SecretBox<E>{
   }  
 
 }
+
+
+
+## Part 3. `#include <iostream>`
+
+1. 涉及文件输入输出，我们不可避免需要用到流（Stream）、文件（File)和IO的知识。请学习相关内容，谈谈你对数据流的理解。
+
+   - Stream：Java的IO流是实现输入/输出的基础，它可以方便地实现数据的输入/输出操作，Java里不同的输入/输出源（键盘、文件、网络连接等）抽象表述为“流”(Stream)，通过流的方式允许Java程序使用<u>**相同**</u>的方式来访问不同的输入/输出源。
+
+   - 流的分类：1.输入流（硬盘到内存），输出流（内存到硬盘）2、字节流（8位字节），字符流（16位字符）3、节点流，处理流
+
+   - 在 **Java**中，File 类是 java.io 包中唯一代表磁盘文件本身的对象，也就是说，如果希望在程序中操作文件和目录，则都可以通过 File 类来完成。File 类定义了一些方法来操作文件，如新建、删除、重命名文件和目录等。
+
+     
+
+   ---
+
+   
+
+   笔记（自用，可跳过）
+
+   File 类提供了如下三种形式构造方法。
+
+   1. File(String path)：如果 path 是实际存在的路径，则该 File 对象表示的是目录；如果 path 是文件名，则该 File 对象表示的是文件。
+   2. File(String path, String name)：path 是路径名，name 是文件名。
+   3. File(File dir, String name)：dir 是路径对象，name 是文件名。
+
+   ##### 一、File类：一个File类对象可以表示具体的一个文件
+
+   1. 创建单个文件(createNewFile())或者单个文件夹（mkdir()）或者多级文件夹（mkdirs)
+   2. 删除文件
+
+   
+
+   在变量、数组、对象和集合中存储的数据是暂时存在的，一旦程序结束它们就会丢失。为了能够永久地保存程序创建的数据，需要将其保存到磁盘文件中，这样就可以在其他程序中使用它们。Java 的 I/O（输入/输出）技术可以将数据保存到文本文件和二进制文件中， 以达到永久保存数据的要求。
+
+   ##### 数据流是 Java 进行 I/O 操作的对象，它按照不同的标准可以分为不同的类别。
+
+   - 按照流的方向主要分为输入流和输出流两大类。
+   - 数据流按照数据单位的不同分为字节流和字符流。
+   - 按照功能可以划分为节点流和处理流。
+
+   ![image-20220908161714409](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220908161714409.png)
+
+   
+
+   ![image-20220908163012026](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220908163012026.png)
+
+--------
+
+task4
+
+--------
+
+![image-20220908224806590](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220908224806590.png)
+
+package task4;
+
+
+
+import java.io.FileInputStream;
+
+import java.io.IOException;
+
+import java.io.ObjectInputStream;
+
+
+
+public class ReadObject {
+
+public static void main(String[] *args*) {
+
+  try (*//创建一个objectInputStream输入流*
+
+  var ois = new ObjectInputStream(new FileInputStream("object.txt"))){
+
+​    *//从输入流中读取一个Java对象，并将其强制类型转换成person类*
+
+​    var p = (Person) ois.readObject();
+
+​    System.out.println("名字为："+p.getName()+"\n年龄为："+p.getAge());
+
+  } catch (IOException|ClassNotFoundException *ex*) {
+
+​    ex.printStackTrace();
+
+  }
+
+}   
+
+}
+
+-----
+
+package task4;
+
+
+
+public class Person implements java.io.Serializable {
+
+  private String name;
+
+  private int age;
+
+  *//注意这里没有提供无参数构造器，等会儿我反序列化的时候是不会主动调用构造器的，我是把这个对象直接还原过来*
+
+  public Person(String *name*, int *age*){
+
+​    System.out.println("有参数构造器");
+
+​    this.name = *name*;
+
+​    this.age = *age*;
+
+  }
+
+  public void setAge(int *age*) {
+
+​    this.age = *age*;
+
+  }
+
+  public void setName(String *name*) {
+
+​    this.name = *name*;
+
+  }
+
+  public int getAge() {
+
+​    return age;
+
+  }
+
+  public String getName() {
+
+​    return name;
+
+  }
+
+}
+
+---
+
+package task4;
+
+
+
+import java.io.FileOutputStream;
+
+import java.io.IOException;
+
+import java.io.ObjectOutputStream;
+
+
+
+*/***
+
+ ** 这个类将一个person对象写入磁盘文件（序列化）*
+
+ **/*
+
+
+
+public class WriteObject {
+
+  public static void main(String[] *args*) {
+
+​    try(*//创建一个ObjectOutputStream输出流*
+
+​    var oos = new ObjectOutputStream(new FileOutputStream("object.txt"))){
+
+​      var per = new Person("孙悟空",500);
+
+​      *//将per对象写入输出流*
+
+​      oos.writeObject(per);
+
+​    }
+
+​    catch(IOException *ex*){
+
+​      ex.printStackTrace();
+
+​    }
+
+  }
+
+}

@@ -229,7 +229,7 @@ import java.util.List;
 
 public class GenericForList {
 
-  *// generic method printArray* 
+  *// generic method printList 
 
 public  static  void  printList (  List<?> *inputList*  ) 
 
@@ -343,7 +343,7 @@ public class SecretBox<E>{
 
    - Stream：Java的IO流是实现输入/输出的基础，它可以方便地实现数据的输入/输出操作，Java里不同的输入/输出源（键盘、文件、网络连接等）抽象表述为“流”(Stream)，通过流的方式允许Java程序使用<u>**相同**</u>的方式来访问不同的输入/输出源。
 
-   - 流的分类：1.输入流（硬盘到内存），输出流（内存到硬盘）2、字节流（8位字节），字符流（16位字符）3、节点流，处理流
+   - 流的分类：1.输入流（硬盘到内存），输出流（内存到硬盘）2、字节流（8位字节），字符流（16位字符）<u>**3、节点流，处理流**</u>
 
    - 在 **Java**中，File 类是 java.io 包中唯一代表磁盘文件本身的对象，也就是说，如果希望在程序中操作文件和目录，则都可以通过 File 类来完成。File 类定义了一些方法来操作文件，如新建、删除、重命名文件和目录等。
 
@@ -355,18 +355,18 @@ public class SecretBox<E>{
 
    笔记（自用，可跳过）
 
-   File 类提供了如下三种形式构造方法。
+   File 类提供了如下三种形式构造方法。**（<u>注意</u>File建立的对象的path不一定真的有，所以才有creatNewFile、mkdir方法当你不存在的时候会去创立一个）**
 
    1. File(String path)：如果 path 是实际存在的路径，则该 File 对象表示的是目录；如果 path 是文件名，则该 File 对象表示的是文件。
    2. File(String path, String name)：path 是路径名，name 是文件名。
    3. File(File dir, String name)：dir 是路径对象，name 是文件名。
 
-   ##### 一、File类：一个File类对象可以表示具体的一个文件
+   ##### 一、File类：一个File类对象可以表示具体的一个文件/文件夹
 
    1. 创建单个文件(createNewFile())或者单个文件夹（mkdir()）或者多级文件夹（mkdirs)
    2. 删除文件
 
-   
+   ### 为什么需要IO流呢？：因为File类只能对文件/文件夹本身操作，但是要对文本内容操作我们需要一个更好的抽象概念
 
    在变量、数组、对象和集合中存储的数据是暂时存在的，一旦程序结束它们就会丢失。为了能够永久地保存程序创建的数据，需要将其保存到磁盘文件中，这样就可以在其他程序中使用它们。Java 的 I/O（输入/输出）技术可以将数据保存到文本文件和二进制文件中， 以达到永久保存数据的要求。
 
@@ -374,13 +374,27 @@ public class SecretBox<E>{
 
    - 按照流的方向主要分为输入流和输出流两大类。
    - 数据流按照数据单位的不同分为字节流和字符流。
-   - 按照功能可以划分为节点流和处理流。
+   - **<u>按照功能可以划分为节点流和处理流。</u>**
 
    ![image-20220908161714409](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220908161714409.png)
 
    
 
    ![image-20220908163012026](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220908163012026.png)
+   
+   
+   
+   
+   
+   
+   
+   ##### 处理流：使用处理流来包装节点流，通过处理流来执行输入/出功能，让节点流与底层的I/O设备、文件交互
+   
+   ![image-20220909085113629](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220909085113629.png)
+   
+   ##### 重定向输入输出：Java的标准输入输出通过Syetem.in,System.out来代表，在默认的情况下它们分别代表键盘和显示器，当程序通过System.in来获取输入时，实际上时从键盘读取输入；当程序通过System.out执行输出时，程序总是输出到屏幕
+   
+   
 
 --------
 
@@ -523,3 +537,9 @@ public class WriteObject {
   }
 
 }
+
+
+
+---------
+
+1. ##### （选做）JSON是一种独立于语言的文本数据交换格式，多种语言都支持这种快速、易读的格式，在工程中我们也常用到JSON。 学习JSON相关知识，学习调用第三方库（如fastjson等），利用JSON完成上面的任务。

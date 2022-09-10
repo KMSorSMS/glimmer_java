@@ -154,7 +154,7 @@ task4
 
 
 
- if (!hasDiamondSword) { *// 没有钻石剑，好害怕，先挖矿！*
+  if (!hasDiamondSword) { *// 没有钻石剑，好害怕，先挖矿！*
 
 ​        for (Item item : inventory) {
 
@@ -206,7 +206,13 @@ task4
 
 ​        if ((item instanceof Eatable && ((Eatable) item).count > 0)) {
 
+​          while(((Eatable) item).count>0){
+
 ​          ((Eatable) item).eat();
+
+​          ((Eatable) item).count--;
+
+​          }
 
 ​        }
 
@@ -224,9 +230,15 @@ task4
 
 ​      Game.adventure(); *// 打不了怪就去收集食物吧*
 
+
+
+​    }
+
+  }
+
 ，这个没有用附魔，用附魔的方法确实太bug了
 
-![image-20220907154447000](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220907154447000.png)
+![image-20220909130109297](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220909130109297.png)
 
 #### 了解java的多态机制，谈谈你的理解。
 

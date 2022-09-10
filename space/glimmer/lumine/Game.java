@@ -48,7 +48,10 @@ class Player {
             }
             for (Item item : inventory) { // 状态不好，补充状态！
                 if ((item instanceof Eatable && ((Eatable) item).count > 0)) {
+                    while(((Eatable) item).count>0){
                     ((Eatable) item).eat();
+                    ((Eatable) item).count--;
+                    }
                 }
             }
             //如果都是末影龙了，就拼了
@@ -180,6 +183,7 @@ public class Game {
                         break;
                     }
                 }
+                break;
             case 2:
                 for (Item item : player.inventory) {
                     if (item instanceof Diamond && ((Diamond) item).count >= 10) {
@@ -190,6 +194,7 @@ public class Game {
                         break;
                     }
                 }
+                break;
             case 3:
                 for (Item item : player.inventory) {
                     if (item instanceof Netherite && ((Netherite) item).count >= 10) {

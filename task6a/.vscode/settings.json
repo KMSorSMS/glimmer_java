@@ -1,0 +1,4 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "code-runner.executorMap": {"java": "cd $dir && javac ..\\..\\..\\..\\$fileName",}
+}

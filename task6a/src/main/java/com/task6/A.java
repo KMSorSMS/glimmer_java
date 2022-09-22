@@ -10,6 +10,6 @@ public class A {
     }
     @Override
     public String toString(){
-        return "A{"+"str="+"\'"+str+"\'"+" ,num="+num+"}";
+        return "A{"+"str="+"\'"+str+"\'"+",num="+num+"}";
     }
 }

@@ -11,7 +11,7 @@ public class Server {
     //进行命令处理的端口号
     private static final int SERVER_COMMAND = 30001;
     public void init(){
-        try(var ss = new ServerSocket()) {
+        try(var ss = new ServerSocket(SERVER_COMMAND)) {
             //采用死循环来不断地监听来自客户端发起的socket连接
             while(true){
                 System.out.println("服务器已打开 端口:"+SERVER_COMMAND+"等待连接中...");

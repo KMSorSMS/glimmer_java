@@ -1,5 +1,5 @@
 ---
-typora-copy-images-to: upload
+
 ---
 
 # Java方向-06B：网络编程
@@ -297,3 +297,50 @@ Task1：
   - 服务器会显示接收到的指令（可以尝试输出到一个日志文件中）。
   - 你需要实现以下指令
 
+遇到了文件名处理问题，用的File.getabsolutepath ,有问题：
+
+![image-20220923180853647](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923180853647.png)
+
+还需要解决相对路径无法建立file实例的问题（因为jvm只会注册启动时的文件夹，相对路径只会在那里面）
+
+![image-20220923181237958](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923181237958.png)
+
+![image-20220923181800768](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923181800768.png)
+
+BufferedOutputStream使用出问题了，我觉得这个写入用个flush就好，读入就用对应的read
+
+![image-20220923181638737](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923181638737.png)
+
+![image-20220923182047526](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923182047526.png)
+
+把打开路径都改成像这样的模式
+
+![image-20220923183249490](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923183249490.png)
+
+文件名好像有出错
+
+![image-20220923184534689](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923184534689.png)
+
+我在这里用正则表达式想把文件名单独拿出来，不过好像是这里出了问题，没达到我的预期，才报的错：
+
+![image-20220923184911460](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923184911460.png)
+
+![image-20220923184959134](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923184959134.png)
+
+艹，我想起来了，因为\在java字符串里面是转义字符，又在正则里面是转义字符，在字符串里面用\\\表示\过后，这个在正则里面是转义，所以还要\\\,总共是\\\\\\\来表示正则里面的\:
+
+![image-20220923185618352](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923185618352.png)
+
+![image-20220923185638104](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923185638104.png)
+
+![image-20220923185703233](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923185703233.png)可以了![image-20220923185730543](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923185730543.png)
+
+用bufferedoutputstream来写复制过来的文件的时候为什么一直会出现这种东西
+
+![image-20220923191443421](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923191443421.png)因为要读多少写多少，这里多写了，最后一次1024字节没满![image-20220923191616194](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923191616194.png)
+
+成功了：![image-20220923192111775](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923192111775.png)
+
+视频里还有两个功能没放出来：![image-20220923195334101](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923195334101.png)文件名错误是get不到的
+
+![image-20220923201456968](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923201456968.png)文件路径错误也是找不到的

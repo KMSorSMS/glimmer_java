@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.net.Socket;
 public class Client {
     private static final int SERVER_COMMAND = 30001;// 服务器命令交互的端口
     private static final int SERVER_DATA = 30002;// 服务器数据交互的端口
-    private static final String ip = "127.0.0.0";// 服务器ip地址
+    private static final String ip = "127.0.0.1";// 服务器ip地址
     private Socket socket;// 与服务器命令之间建立的连接并返回的socket
     private Socket dataSocket;// 与服务器数据端口之间建立的连接返回的socket
     private BufferedReader brServer;// 输入流获取服务器传来的命令反馈
@@ -47,11 +48,12 @@ public class Client {
             String sentence = null;
             do {
                 // 打印命令提示行
-                System.out.println(fileNow + ">>>");
+                System.out.print(fileNow + ">>>");
                 // 输入命令
                 sentence = keyIn.readLine();
                 // 发送命令
-                bwServer.write(sentence);
+                bwServer.write(sentence+"\n");
+                bwServer.flush();
                 // 对于命令的解析
                 String arr[] = sentence.split("\\s+");
                 // 说明为无参数命令：pwd\ls\quit
@@ -96,11 +98,34 @@ public class Client {
         }
         if (commandIn.equals("get")) {
             getCommand(param);
+            return;
         }
+        if(commandIn.equals("put")){
+            putCommand(param);
+            return;
+        }
+        System.out.println("err:没有"+commandIn+"指令");
     }
 
     public void putCommand(String param) {
+        if(param==null){
+            System.out.println("缺少参数");
+            return;
+        }
         try {
+             //根据参数创建对应的文件实例
+             File srcFile = new File(param);
+             //判断文件是否有效
+             if(!srcFile.exists()){
+                 bwServer.write("FNE\n");
+                 bwServer.flush();
+                 System.out.println("文件路径错误");
+                 return;
+             }
+             else{
+                 bwServer.write("done\n");
+                 bwServer.flush();
+             }
             // 根据数据端口建立连接
             dataSocket = new Socket(ip, SERVER_DATA);
             System.out.println("数据端口已连接 Port" + SERVER_DATA);
@@ -112,9 +137,12 @@ public class Client {
             byte[] in = new byte[1024];
             // 开始上传文件
             System.out.println("开始上传文件");
-            while (fileIn.read(in, 0, in.length) >= 0) {// 读取如果还有
+            //要都多少写多少
+            int count = 0;
+            while ((count = fileIn.read(in, 0, in.length)) >= 0) {// 读取如果还有
                 //输出
-                outputServer.write(in);
+                outputServer.write(in,0,count);
+                outputServer.flush();
             }
             //关闭输出流
             if(outputServer!=null){
@@ -143,6 +171,10 @@ public class Client {
      * @param param
      */
     private void getCommand(String param) {
+        if(param==null){
+            System.out.println("缺少参数");
+            return;
+        }
         try {
             // 先通过命令端口读取反馈信息，确定文件存在
             if (brServer.readLine().equals("FNE")) {// 说明文件不存在
@@ -155,7 +187,7 @@ public class Client {
             // 开启字节流接收
             inputServer = new BufferedInputStream(dataSocket.getInputStream());
             // 打开接收的文件储存位置
-            FileOutputStream fileOut = new FileOutputStream("../../source/" + param);
+            FileOutputStream fileOut = new FileOutputStream("E:/schoollearn/glimmer02/task6B/demo/src/main/java/source/" + param);
             // 字节流容器
             byte[] in = new byte[1024];
             // 读入输入
@@ -163,14 +195,24 @@ public class Client {
             try {
                 // 开始下载文件
                 System.out.println("开始下载文件");
-                while (inputServer.read(in, 0, in.length) >= 0) {// 当有输入时
+                //记录读的字节，读多少，写多少
+                int count = 0;
+                while ((count=inputServer.read(in, 0, in.length)) >= 0) {// 当有输入时
                     // 向指定文件写入
-                    fileOut.write(in);
+                    fileOut.write(in,0,count);
+                    fileOut.flush();
                 }
                 //其实不会走到这一步
-                if(fileOut!=null){
+                if (dataSocket != null) {
+                    dataSocket.close();
+                }
+                if (inputServer != null) {
+                    inputServer.close();
+                }
+                if (fileOut != null) {
                     fileOut.close();
                 }
+                System.out.println("文件传输完毕 Socket已关闭");
             } catch (IOException ex) {
                 if (dataSocket != null) {
                     dataSocket.close();
@@ -202,7 +244,7 @@ public class Client {
             // 接收传来的信息
             String receive = brServer.readLine();
             // 如果服务器传来报错信息
-            if (receive.equals("NnoDir")) {
+            if (receive.equals("NoDir")) {
                 System.out.println("文件夹不存在");
             } else {
                 // 无误后更改目录

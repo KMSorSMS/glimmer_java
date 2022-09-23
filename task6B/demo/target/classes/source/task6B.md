@@ -344,3 +344,6 @@ BufferedOutputStream使用出问题了，我觉得这个写入用个flush就好�
 视频里还有两个功能没放出来：![image-20220923195334101](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923195334101.png)文件名错误是get不到的
 
 ![image-20220923201456968](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220923201456968.png)文件路径错误也是找不到的
+
+<iframe src="//player.bilibili.com/player.html?aid=560839537&bvid=BV1Te4y1b7Zm&cid=841351136&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" height = "700" width = "700"> </iframe>
+

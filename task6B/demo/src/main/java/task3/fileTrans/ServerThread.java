@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
@@ -25,7 +24,7 @@ public class ServerThread extends Thread {
     // 服务器与客户端socket连接后的输出字节流,以及包装的字符流
     private BufferedOutputStream serverOutput;
     private BufferedWriter serveWriter;
-    private String usrName;
+    // private String usrName;
     // 用户所在的当前文件夹
     private File fileNow;
 
@@ -43,8 +42,8 @@ public class ServerThread extends Thread {
             // 获得服务器对应输出流
             this.serveWriter = new BufferedWriter(new OutputStreamWriter(ss.getOutputStream(), "UTF-8"));
 
-            // 使用读取名字的方法
-            registerUsrName();
+            // 初次连接，发送文件绝对路径信息
+            serveWriter.write(fileNow.getAbsolutePath());
             // 接收指令
             String commandIn = null;
             String param = null;
@@ -79,17 +78,7 @@ public class ServerThread extends Thread {
      */
     private void handleCommand(String commandIn, String param) {
         if (commandIn.equals("cd")) {
-            // 如果服务器端成功调整了file
-            try {
-                if (cdCommand(param)) {
-                    // 向客户端发送绝对路径名称
-                    serveWriter.write(fileNow.getAbsolutePath());
-                } else {
-                    serveWriter.write("指定文件夹不存在或不是目录");
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            cdCommand(param);
             return;
         }
         if (commandIn.equals("pwd")) {
@@ -104,11 +93,11 @@ public class ServerThread extends Thread {
             quitCommand();
             return;
         }
-        if(commandIn.equals("get")){
+        if (commandIn.equals("get")) {
             getCommand(param);
             return;
         }
-        if(commandIn.equals("put")){
+        if (commandIn.equals("put")) {
             putCommand(param);
             return;
         }
@@ -118,37 +107,47 @@ public class ServerThread extends Thread {
     /**
      * 在当前文件夹建立一个文件
      * 接收客户端上传数据
+     * 
      * @return
      */
 
-    public boolean putCommand(String path){
-        try{
-            System.out.println("打开数据端口: "+SERVER_DATA+"等待连接中...");
-            //建立连接
+    private boolean putCommand(String path) {
+        try {
+            System.out.println("打开数据端口: " + SERVER_DATA + "等待连接中...");
+            // 建立连接
             var socketServer = new ServerSocket(SERVER_DATA);
             var socket = socketServer.accept();
             String[] fileArr = path.split("[\\/]");
-            //找到最后一个文件名
-            String fileName = fileArr[fileArr.length-1];
-            FileOutputStream serveOut = new FileOutputStream("./"+fileName);
+            // 找到最后一个文件名
+            String fileName = fileArr[fileArr.length - 1];
+            FileOutputStream serveOut = new FileOutputStream("./" + fileName);
             System.out.println("客户端连接成功 等待客户端上传文件 ");
             this.serverInput = new BufferedInputStream(socket.getInputStream());
-            byte [] in = new byte[1024];
-            //当有读入的时候
-            while((serverInput.read(in, 0, in.length))>=0){
-                //写入
-                serveOut.write(in);
+            byte[] in = new byte[1024];
+            try {
+                // 当有读入的时候
+                while ((serverInput.read(in, 0, in.length)) >= 0) {
+                    // 写入
+                    serveOut.write(in);
+                }
+            } catch (IOException ex) {
+                // 关闭端口
+                if (socket != null) {
+                    socket.close();
+                }
+                if (socketServer != null) {
+                    socketServer.close();
+                }
+                // 关闭文件流
+                if (serveOut != null) {
+                    serveOut.close();
+                }
+                // 接收文件结束，检查到读入流关闭
+                System.out.println("接收文件结束");
             }
-            //关闭端口
-            socket.close();
-            socketServer.close();
-            //关闭文件流
-            serveOut.close();
             return true;
-        }
-        catch(IOException ex){
-            //接收文件失败
-            System.out.println("接收文件结束");
+        } catch (IOException ex) {
+            System.out.println("接收客户输入异常");
             ex.printStackTrace();
             return false;
         }
@@ -158,13 +157,14 @@ public class ServerThread extends Thread {
      * 响应客户端的get请求，开启新的端口
      * 客户端对应开启数据的新线程，当服务器关闭通信时
      * 客户端依靠异常处理关闭接收数据
+     * 
      * @param path
      * @return
      */
-    public boolean getCommand(String path) {
+    private boolean getCommand(String path) {
         try {
-            System.out.println("打开数据端口: "+SERVER_DATA+"等待连接中...");
-            File srcFile = new File("./"+path);
+            System.out.println("打开数据端口: " + SERVER_DATA + "等待连接中...");
+            File srcFile = new File("./" + path);
             // 判断文件是否存在
             if (!srcFile.exists()) {
                 serveWriter.write("FNE");
@@ -172,29 +172,40 @@ public class ServerThread extends Thread {
             } else {
                 serveWriter.write("done");
             }
-            //获得源文件的文件
+            // 获得源文件的文件
             FileInputStream fileInTemp = new FileInputStream(srcFile);
-            //建立和客户端的连接
+            // 建立和客户端的连接
             var socketServer = new ServerSocket(SERVER_DATA);
-            var socket = socketServer.accept();//得到与客户端数据端口沟通的响应
-            System.out.println("客户端连接成功 传输文件 "+path);
+            var socket = socketServer.accept();// 得到与客户端数据端口沟通的响应
+            System.out.println("客户端连接成功 传输文件 " + path);
             this.serverOutput = new BufferedOutputStream(socket.getOutputStream());
-            byte [] in = new byte[1024];
-            //当有的时候，进行输出
-            while((fileInTemp.read(in, 0, in.length))>=0){
-                //输出
+            byte[] in = new byte[1024];
+            // 当有的时候，进行输出
+            while ((fileInTemp.read(in, 0, in.length)) >= 0) {
+                // 输出
                 serverOutput.write(in);
             }
             //关闭端口
+            if(socket!=null){
+                socket.close();
+            }
+            // 关闭端口
+            if(socketServer!=null){
             socketServer.close();
-            //关闭源文件输入流
+            }
+            // 关闭源文件输入流
+            if(fileInTemp!=null){
             fileInTemp.close();
+            }
+            if(serverOutput!=null){
+                serverOutput.close();
+            }
             System.out.println("传输成功 Socket已关闭");
             return true;
-            
+
         } catch (IOException ex) {
             ex.printStackTrace();
-            //调试用
+            // 调试用
             System.out.println("get出现问题");
             return false;
         }
@@ -277,33 +288,20 @@ public class ServerThread extends Thread {
             // 当路径存在且为目录时，更新当前的文件
             if (fileTemp != null && fileTemp.isDirectory()) {
                 fileNow = fileTemp;
+                // 向客户端发送绝对路径名称
+                serveWriter.write(fileNow.getAbsolutePath());
                 return true;
             }
+            serveWriter.write("NoDir");
             return false;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
-        }
-    }
-
-    // 获取用户名方法
-    private void registerUsrName() {
-        String name = null;
-        try {
-            // 读取名字
-            while (name == null) {
-                name = serveReader.readLine();
-                if (name == null) {
-                    serveWriter.write("empty");
-                }
+            try {
+                serveWriter.write("NoDir");
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-            this.usrName = name;
-            // 表示完成
-            serveWriter.write("done");
-            // 返回给客户端当前的路径
-            serveWriter.write(fileNow.getAbsolutePath());
-        } catch (Exception e) {
-            e.printStackTrace();
+            return false;
         }
     }
 }

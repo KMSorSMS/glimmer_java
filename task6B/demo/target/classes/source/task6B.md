@@ -1,20 +1,24 @@
+---
+typora-copy-images-to: upload
+---
+
 # Java方向-06B：网络编程
 
-![image-20220918095334563](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918095334563.png)
+![image-20220918095334563](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918095334563.png)
 
-![image-20220918095514936](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918095514936.png)
+![image-20220918095514936](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918095514936.png)
 
-![image-20220918095748017](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918095748017.png)
+![image-20220918095748017](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918095748017.png)
 
-![image-20220918100111679](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918100111679.png)
+![image-20220918100111679](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918100111679.png)
 
-![image-20220918100302453](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918100302453.png)
+![image-20220918100302453](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918100302453.png)
 
-![image-20220918100326423](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918100326423.png)
+![image-20220918100326423](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918100326423.png)
 
-![image-20220918100449388](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918100449388.png)![image-20220918100654498](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918100654498.png)![image-20220918100528066](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918100528066.png)
+![image-20220918100449388](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918100449388.png)![image-20220918100654498](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918100654498.png)![image-20220918100528066](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918100528066.png)
 
-![image-20220918100740035](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918100740035.png)
+![image-20220918100740035](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918100740035.png)
 
 -----------------
 
@@ -24,7 +28,7 @@ Task1：
 
 - 先看看这个图，了解网络层次
 
-  ![image-20220918164836318](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918164836318.png)
+  ![image-20220918164836318](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918164836318.png)
 
   TCP/IP 指传输控制协议/网际协议（Transmission Control Protocol / Internet Protocol）
 
@@ -34,9 +38,9 @@ Task1：
   2. Internet Protocol 名字很夸张，但是几乎所有使用网络的系统都会用到IP协议。
   3. IP不是IP地址，它是一种协议
   4. IP协议的作用是把各类数据包传输给对方。要保证确实传送到对方那里，有两个最重要的条件：IP地址，MAC（Media Access Control Address）地址
-  5. ![image-20220918164554367](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918164554367.png)
+  5. ![image-20220918164554367](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918164554367.png)
 
-  小总结：![image-20220918164702226](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918164702226.png)
+  小总结：![image-20220918164702226](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918164702226.png)
 
 ##### 然后是TCP：
 
@@ -44,7 +48,7 @@ Task1：
 
 - 采用三次握手策略：
 
-  ![image-20220918165357564](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918165357564.png)
+  ![image-20220918165357564](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918165357564.png)
 
 - #### Java中有一个叫做InetAddress的类，可以获取指定主机的信息。
 
@@ -63,17 +67,17 @@ Task1：
     }
     ```
 
-    ![image-20220918170355495](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918170355495.png)
+    ![image-20220918170355495](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918170355495.png)
 
 认识：java提供了InetAddress类来代表IP地址
 
 关于这个类的方法：
 
-1. ![image-20220918171136331](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918171136331.png)
+1. ![image-20220918171136331](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918171136331.png)
 
 2. 这里被突然的域名，主机名，ip地址，全限定域名搞得有点晕，我得仔细看看区别：
 
-   - ![image-20220918171811598](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918171811598.png)<u>域名只是在公网（INtERNET)中存在(以实验为目的的局域网域网实验性除外)，每个域名都对应一个IP地址，但一个IP地址可有对应多个域名。域名类型 linuxsir.org 这样的；</u>
+   - ![image-20220918171811598](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918171811598.png)<u>域名只是在公网（INtERNET)中存在(以实验为目的的局域网域网实验性除外)，每个域名都对应一个IP地址，但一个IP地址可有对应多个域名。域名类型 linuxsir.org 这样的；</u>
 
      
 
@@ -105,9 +109,9 @@ Task1：
 
      再上图：
 
-     ![image-20220918175432060](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918175432060.png)
+     ![image-20220918175432060](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918175432060.png)
 
-     ![image-20220918175605163](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918175605163.png)
+     ![image-20220918175605163](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918175605163.png)
 
    - #### 完全限定域名
 
@@ -150,7 +154,7 @@ Task1：
    
    ```
 
-   ![image-20220918183629934](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918183629934.png)
+   ![image-20220918183629934](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918183629934.png)
 
 - #### 通过URL，我们可以获取各种网络上的资源🔗。
 
@@ -202,9 +206,9 @@ Task1：
     
     ```
 
-    对于URL：![image-20220918184611744](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918184611744.png)
+    对于URL：![image-20220918184611744](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918184611744.png)
 
-​							而URI：![image-20220918184639452](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220918184639452.png)
+​							而URI：![image-20220918184639452](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220918184639452.png)
 
 ## TASK2：简单的Socket编程
 
@@ -216,7 +220,7 @@ Task1：
   
   在这里我想做一个简单的聊天工具，但是当我把自己的主机当作服务器的时候，遇到了问题，我只能实现局域网的交流，没办法让公网来访问我
   
-  ![image-20220919165545382](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220919165545382.png)
+  ![image-20220919165545382](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220919165545382.png)
   
   就是这里，我的ip是在局域网里面的，并不是在公网里面，在公网的client没办法连接到我的服务器
   
@@ -230,51 +234,51 @@ Task1：
   
   DMZ主机是开放了指定的内网电脑的所有端口，DMZ和端口转发不能同时使用，如果需要映射多台主机到外网可以使用端口转发。
 
-![image-20220919171719294](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220919171719294.png)
+![image-20220919171719294](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220919171719294.png)
 
 但是我们开的是局域网
 
 ，我打算买个服务器然后运行那个程序
 
-![image-20220920084913381](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220920084913381.png)
+![image-20220920084913381](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220920084913381.png)
 
 
 
-![image-20220920085040173](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220920085040173.png)
+![image-20220920085040173](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220920085040173.png)
 
 连接了
 
-怎么下载东西呢？：![image-20220920090740747](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220920090740747.png)
+怎么下载东西呢？：![image-20220920090740747](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220920090740747.png)
 
-![image-20220920090650954](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220920090650954.png)查看jdk版本
+![image-20220920090650954](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220920090650954.png)查看jdk版本
 
-![image-20220920090559377](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220920090559377.png)
+![image-20220920090559377](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220920090559377.png)
 
 下载JDK11
 
-要去配置maven![image-20220920092046929](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220920092046929.png)
+要去配置maven![image-20220920092046929](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220920092046929.png)
 
-![image-20220920092027652](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220920092027652.png)
+![image-20220920092027652](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220920092027652.png)
 
-结果我的是ip是私网的：![image-20220920093543876](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220920093543876.png)
+结果我的是ip是私网的：![image-20220920093543876](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220920093543876.png)
 我这里开服务器服务的时候出问题了，就是我一直不知道怎么用我服务器的外网ip来提供socket服务，我用的new ServerSocket()构造器，要是只传入端口号就会用服务器私网的ip，然后我就认为服务器是连个ip，公网和私网
 ，然后我就想到new ServerSocket（）有个重载构造器是可以指定另一个ip的，
-![img](file:///C:\Users\yuanz\Documents\Tencent Files\1429572661\Image\C2C\YEARJTOV$9GZ}BZCNU[B2E3.png)
+![img](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/YEARJTOV$9GZ%7DBZCNU%5BB2E3.png)
 ，结果我就报错了
 
-然后又遇到了乱码问题：![image-20220920120757298](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220920120757298.png)
+然后又遇到了乱码问题：![image-20220920120757298](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220920120757298.png)
 
-![image-20220920121032570](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220920121032570.png)
+![image-20220920121032570](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220920121032570.png)
 
 当英文的时候是正常，但是中文就是异常，推断是编码格式问题
 
-但是我服务器编辑的格式是utf-8	![image-20220920121148919](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220920121148919.png)
+但是我服务器编辑的格式是utf-8	![image-20220920121148919](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220920121148919.png)
 
-客户端编辑的格式也是utf-8:![image-20220920121234397](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220920121234397.png)
+客户端编辑的格式也是utf-8:![image-20220920121234397](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220920121234397.png)
 
 但是无论是服务器发给客户端的中文消息，还是客户端给服务器的中文消息，都是乱码
 
-我推断，那是socket对应输出流的编码格式不是utf-8造成的，那应该是JVM的编码格式非utf-8吗，但是我用的是![image-20220920121420248](C:\Users\yuanz\AppData\Roaming\Typora\typora-user-images\image-20220920121420248.png)这个扩展来编译运行的java，如果是这个问题的话，那怎么改正呢？如果不是这个问题的话又是哪里出错了呢？
+我推断，那是socket对应输出流的编码格式不是utf-8造成的，那应该是JVM的编码格式非utf-8吗，但是我用的是![image-20220920121420248](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220920121420248.png)这个扩展来编译运行的java，如果是这个问题的话，那怎么改正呢？如果不是这个问题的话又是哪里出错了呢？
 
 -------
 
@@ -282,7 +286,7 @@ Task1：
 
 1. ### 服务器部分
 
-   ![](D:\Extend_E\Photos\QQ图片20220919222150.jpg)
+   ![](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/QQ%E5%9B%BE%E7%89%8720220919222150.jpg)
 
 ------
 
@@ -292,3 +296,4 @@ Task1：
   - 客户端每行以`>>>`开始，提示用户输入。
   - 服务器会显示接收到的指令（可以尝试输出到一个日志文件中）。
   - 你需要实现以下指令
+

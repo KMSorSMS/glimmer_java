@@ -21,7 +21,7 @@ public class Client {
             // 初始化代表键盘的输入流
             keyIn = new BufferedReader(new InputStreamReader(System.in,"UTF-8"));
             // 连接到服务器端
-            socket = new Socket("47.108.81.131", SERVER_PORT);// 向服务器发起请求，
+            socket = new Socket("127.0.0.1", SERVER_PORT);// 向服务器发起请求，
             // 获取该Socket对应的输入流和输出流
             ps = new PrintStream(socket.getOutputStream());// 输出流,输出到服务器
             brServer = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF-8"));// 输入流，获取服务器信息

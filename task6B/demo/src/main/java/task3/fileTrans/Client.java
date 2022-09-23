@@ -15,7 +15,7 @@ import java.net.Socket;
 public class Client {
     private static final int SERVER_COMMAND = 30001;// 服务器命令交互的端口
     private static final int SERVER_DATA = 30002;// 服务器数据交互的端口
-    private static final String ip = "127.0.0.1";// 服务器ip地址
+    private static final String ip = "47.108.81.131";// 服务器ip地址
     private Socket socket;// 与服务器命令之间建立的连接并返回的socket
     private Socket dataSocket;// 与服务器数据端口之间建立的连接返回的socket
     private BufferedReader brServer;// 输入流获取服务器传来的命令反馈

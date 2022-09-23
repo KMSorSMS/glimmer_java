@@ -52,7 +52,7 @@ public class ServerThread2 extends Thread {
                     String user = userAndMsg.split(CrazyitProtocol.SPLIT_SIGN)[0];
                     String msg = userAndMsg.split(CrazyitProtocol.SPLIT_SIGN)[1];
                     // 获取私聊用户对应的输出流，并发送私聊信息
-                    Server.clients.map.get(user).println(Server.clients.getKeyByValue(ps) + "悄悄地对你说" + msg);
+                    Server.clients.map.get(user).println(Server.clients.getKeyByValue(ps) + "said privately to you:" + msg);
                 }
                 // 公聊要向每个Socket发送
                 else {
@@ -60,7 +60,7 @@ public class ServerThread2 extends Thread {
                     String msg = getRealMsg(line);
                     // 遍历clients中的每个输出流
                     for (var clientPs : Server.clients.valueSet()) {
-                        clientPs.println(Server.clients.getKeyByValue(ps) + "给全部人说：" + msg);
+                        clientPs.println(Server.clients.getKeyByValue(ps) + " said publicly:" + msg);
                     }
                 }
             }

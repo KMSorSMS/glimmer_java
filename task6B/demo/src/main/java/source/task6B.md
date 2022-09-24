@@ -810,3 +810,5 @@ public class ServerThread extends Thread {
 测试一下：
 
 ![image-20220924093151170](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220924093151170.png)![image-20220924093248067](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220924093248067.png)
+
+这里我对于运行时的参数传递要求是：如果要传参不用默认值，那么你的参数必须完整，端口号加ip（客户端），端口号（服务器端），因为你如果要用自己的值，默认值并没有什么实际意义，最多只是处于偶然和你的值相等，那么你应该自己把ip和端口写完整，防止漏掉出错

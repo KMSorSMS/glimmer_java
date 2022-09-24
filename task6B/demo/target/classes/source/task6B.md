@@ -786,3 +786,27 @@ public class ServerThread extends Thread {
 代码主体在githb，网址：
 
 #### https://github.com/KMSorSMS/glimmer_java.git
+
+
+
+对于port，ip的动态传参实现：
+
+![image-20220924090212057](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220924090212057.png)
+
+![image-20220924090404184](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220924090404184.png)
+
+这样写好像不对：![image-20220924091156218](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220924091156218.png)
+
+![image-20220924091229904](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220924091229904.png)
+
+它是传入的这个![image-20220924091315930](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220924091315930.png)
+
+感觉这样有戏:![image-20220924091517261](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220924091517261.png)
+
+好耶！![image-20220924091553114](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220924091553114.png)
+
+配置好运行时参数：![image-20220924091852116](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220924091852116.png)
+
+测试一下：
+
+![image-20220924093151170](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220924093151170.png)![image-20220924093248067](https://fastly.jsdelivr.net/gh/KMSorSMS/picGallery/img/image-20220924093248067.png)

@@ -16,7 +16,7 @@ import java.net.SocketException;
 
 public class ServerThread extends Thread {
     // 对于数据传输的端口号
-    private static final int SERVER_DATA = 30002;
+    static int SERVER_DATA = 30002;
     // 所处理的socket连接
     private Socket ss;
     // 服务器与客户端socket连接后的输入字节流,以及包装的字符流

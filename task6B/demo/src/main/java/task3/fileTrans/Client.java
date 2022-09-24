@@ -13,9 +13,9 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 
 public class Client {
-    private static final int SERVER_COMMAND = 30001;// 服务器命令交互的端口
-    private static final int SERVER_DATA = 30002;// 服务器数据交互的端口
-    private static final String ip = "47.108.81.131";// 服务器ip地址
+    private static  int SERVER_COMMAND = 30001;// 服务器命令交互的端口
+    private static  int SERVER_DATA = 30002;// 服务器数据交互的端口
+    private static  String ip = "47.108.81.131";// 服务器ip地址
     private Socket socket;// 与服务器命令之间建立的连接并返回的socket
     private Socket dataSocket;// 与服务器数据端口之间建立的连接返回的socket
     private BufferedReader brServer;// 输入流获取服务器传来的命令反馈
@@ -26,6 +26,12 @@ public class Client {
     private String fileNow;
 
     public static void main(String[] args) {
+        //对于端口号和ip看看有没有传入的参数
+       if(args.length==3){//设置参数数量匹配
+            SERVER_COMMAND = Integer.parseInt(args[0]);
+            SERVER_DATA = Integer.parseInt(args[1]);
+            ip = args[2];
+       }
         new Client().init();
     }
 

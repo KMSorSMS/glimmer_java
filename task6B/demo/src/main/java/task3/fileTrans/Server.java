@@ -9,7 +9,7 @@ import java.net.ServerSocket;
 
 public class Server {
     //进行命令处理的端口号
-    private static final int SERVER_COMMAND = 30001;
+    private static int SERVER_COMMAND = 30001;
     public void init(){
         try(var ss = new ServerSocket(SERVER_COMMAND)) {
             //采用死循环来不断地监听来自客户端发起的socket连接
@@ -29,6 +29,10 @@ public class Server {
      * @param args
      */
     public static void main(String[] args) {
+        if(args.length==2){
+            SERVER_COMMAND = Integer.parseInt(args[0]);
+            ServerThread.SERVER_DATA = Integer.parseInt(args[1]);
+        }
         new Server().init();
     }
     
